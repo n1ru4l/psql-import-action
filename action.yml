@@ -5,6 +5,10 @@ inputs:
     description: "The host of the postgres service."
     required: true
     default: "localhost"
+  POSTGRES_PORT:
+    description: "The port of the postgres service."
+    required: true
+    default: 5432
   POSTGRES_USER:
     description: "The username used for authentication."
     required: true
@@ -13,10 +17,21 @@ inputs:
     description: "The password used for authentication."
     required: true
     default: "password"
-  POSTGRES_PORT:
-    description: "The port used for authentication."
+  POSTGRES_DATABASE:
+    description: "The database name."
     required: true
-    default: "port"
+    default: "postgres"
   DATABASE_DUMP_PATH:
     description: "Path of the database dump that should get imported."
     required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.DATABASE_DUMP_PATH }}
+  env:
+    POSTGRES_HOST: ${{ inputs.POSTGRES_HOST }}
+    POSTGRES_PORT: ${{ inputs.POSTGRES_PORT }}
+    POSTGRES_USER: ${{ inputs.POSTGRES_USER }}
+    POSTGRES_PASSWORD: ${{ inputs.POSTGRES_PASSWORD }}
+    POSTGRES_DATABASE: ${{ inputs.POSTGRES_DATABASE }}
