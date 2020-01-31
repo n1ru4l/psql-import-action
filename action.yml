@@ -1,0 +1,22 @@
+name: "Import Postgres Database Action"
+description: "Import a database dump into your running Postgres service."
+inputs:
+  POSTGRES_HOST:
+    description: "The host of the postgres service."
+    required: true
+    default: "localhost"
+  POSTGRES_USER:
+    description: "The username used for authentication."
+    required: true
+    default: "postgres"
+  POSTGRES_PASSWORD:
+    description: "The password used for authentication."
+    required: true
+    default: "password"
+  POSTGRES_PORT:
+    description: "The port used for authentication."
+    required: true
+    default: "port"
+  DATABASE_DUMP_PATH:
+    description: "Path of the database dump that should get imported."
+    required: true
