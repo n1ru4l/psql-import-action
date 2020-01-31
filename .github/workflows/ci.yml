@@ -22,5 +22,5 @@ jobs:
           POSTGRES_HOST: "localhost"
           POSTGRES_USER: "postgres"
           POSTGRES_PASSWORD: "password"
-          POSTGRES_PORT: "port"
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
           DATABASE_DUMP_PATH: "./test-dump.sql"
