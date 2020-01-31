@@ -1,0 +1,26 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:9.6-alpine@sha256:379b867aca59dc4ee8d0739b5d593dcd9693ae76c253a0c4e367a080d1d00ccc
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: postgres
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ./ # Uses an action in the root directory
+        with:
+          POSTGRES_HOST: "localhost"
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "password"
+          POSTGRES_PORT: "port"
+          DATABASE_DUMP_PATH: "./test-dump.sql"
